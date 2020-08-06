@@ -1,9 +1,10 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="styles.css">
     <title> Ayush Karn</title>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@200;300;400;500;600;700;800;900&family=Varela&display=swap" rel="stylesheet">
+
 </head>
 <style>
     html,
@@ -14,24 +15,44 @@
         font-family: Helvetica;
     }
 
-    .map {
+    #rafel {
         position: absolute;
-        top: 3rem;
-        left: 0px;
-        width: 100%;
-        height: 100%;
-        background: #fff;
-        z-index: 0;
+        top: 20px;
+        font-family: 'Varela', sans-serif;
+        font-size: 40px;
+        font-weight: 800;
+        left: 35%;
+
     }
 
-    button {
+    .map {
         position: absolute;
-        top: 10px;
-        left: 40%;
-        flex: 1 1 auto;
+        top: 15%;
+        left: 0px;
+        width: 90%;
+        height: 70%;
+        left: 5%;
+        background: #fff;
+        z-index: 0;
+        transition: 1s;
+    }
+
+    .map:hover {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .map {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+
+    .launch {
+        position: absolute;
+        bottom: 20px;
+        left: 30%;
         margin: auto;
         padding: 20 50 20 50;
         text-align: center;
+        font-size: 15px;
         text-transform: uppercase;
         transition: 0.5s;
         background-size: 200% auto;
@@ -44,12 +65,42 @@
         text-decoration: none;
     }
 
+    .launch:hover {
+        background-position: right center;
+    }
+
+    #result {
+        border: 2px solid black;
+        position: absolute;
+        bottom: 20px;
+        margin: auto;
+        width: 20%;
+        left: 50%;
+        height: 50px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    #owner {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-family: 'Varela', sans-serif;
+
+    }
+
+    #owner a {
+        text-decoration: none;
+    }
+
 </style>
 
 <body>
-
+    <div id="rafel">Implement Rafale App</div>
     <div id="mapCanvas" class="map"></div>
-    <button onclick="go()">Launch Rafale</button>
+    <button class="launch" onclick="launch()">Launch Rafale</button>
+    <div id="result"></div>
+    <div id="owner"><a href="https://ayushkarn.netlify.app/">@ayush-karn</a></div>
 </body>
 
 <script>
@@ -88,7 +139,7 @@
             scaleControl: false,
             disableDefaultUI: true,
             disableDoubleClickZoom: true,
-            zoom: 2,
+            zoom: 3.5,
             center: new google.maps.LatLng(38.9637, 35.2433),
 
         };
@@ -169,17 +220,16 @@
     }
 
 
-    function go() {
+    function launch() {
         window.cancelAnimationFrame(animLoop);
         animIndex = 0;
-        if (count++ < 5) {
+        if (count++ < 4) {
             animate();
         }
-        if (count == 6) {
-            alert("Rafale Successfully delivered to India");
+        if (count == 5) {
+            animate();
+            document.getElementById('result').innerHTML = "Rafale successfully delivered to India";
         }
-
-
     }
 
     loadMap();
