@@ -128,7 +128,8 @@
     };
     var val1 = new google.maps.LatLng(48.8566, 2.3522);
     var val2 = new google.maps.LatLng(30.3752, 76.7821);
-
+    var delivered = 0;
+    let colors = ["#3ac8e8", "#2cd14d", "#ffffff", "#0a0a0a", "#ff0320"]
 
     function loadMap() {
         var options = {
@@ -159,15 +160,16 @@
     }
 
 
-    var planeSymbol = {
-        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-        fillColor: '#fff',
-        fillOpacity: 2,
-        scale: 5,
-        strokeWeight: 0
-    };
+
 
     function animate() {
+        var planeSymbol = {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+            fillColor: colors[delivered],
+            fillOpacity: 2,
+            scale: 5,
+            strokeWeight: 0
+        };
         startPoint = [48.8566, 2.3522];
         endPoint = [30.3752, 76.7821];
         var sP = new google.maps.LatLng(startPoint[0], startPoint[1]);
@@ -176,7 +178,7 @@
 
         planePath = new google.maps.Polyline({
             path: [sP, eP],
-            strokeColor: '#0f0',
+            strokeColor: colors[delivered],
             strokeWeight: 0,
             icons: [{
                 icon: planeSymbol,
@@ -188,11 +190,14 @@
 
         trailPath = new google.maps.Polyline({
             path: [sP, sP],
-            strokeColor: '#2eacd0',
+            strokeColor: colors[delivered],
             strokeWeight: 2,
             map: mapObject,
             geodesic: true
         });
+
+        delivered++;
+
 
         animLoop = window.requestAnimationFrame(function() {
             tick(sP, eP);
